@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  app:
+    build: .
+    ports: 
+        - "3000:3000"
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes: 
+        - ./test_app:/app
+    links: 
+        - db
+
+  db:
+    image: 'mariadb:latest'
+    ports: 
+        - "3060:3060"
+    environment:
+     - MYSQL_DATABASE=tlb_commerce_development
+     - MYSQL_ROOT_USER=root
+     - MYSQL_USER=tlb_commerce
+     - MYSQL_PASSWORD=password
+     - MYSQL_ROOT_PASSWORD=password
